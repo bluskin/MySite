@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+ 
+{% block content %}
+ 
+  <h2>Hi {{full_name}}!</h2>
+ 
+{% if latest_topic_list %}
+    <table border = "5" cellpadding = "5" width = "100%" class="table table-striped">
+        <tr>
+            <td>Title</td>
+            <td>Date Created</td>
+            <td>Description</td>
+            <td>Pro/Con Ratio</td>
+        </tr>
+    {% for topic in latest_topic_list %}
+        <tr>
+            <td><a href="/topics/{{ topic.id }}/">{{ topic.title }}</a></td>
+            <td>{{topic.created}}</td>
+            <td>{{topic.description}}</td>
+            <td>{% widthratio topic.votesfor topic.votesagainst 1 %}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>No topics are up for discussion.</p>
+{% endif %}
+ 
+ 
+{% endblock %}

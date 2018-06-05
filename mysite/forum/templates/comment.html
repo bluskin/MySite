@@ -1,0 +1,21 @@
+{% extends base.html%}
+{% block content %}
+<div>
+    <table border = "5" cellpadding = "5" width = "100%">
+        <tr>
+            <td>Date created</td>
+            <td>User</td>
+            <td>Comment</td>
+        </tr>
+	{% for comment in Comments.object_list %}
+        <tr>
+        <td> {{ comment.created|date:"Y-m-d" }}</td>
+     <td>   {{ comment.user}}</td>
+        <td></td><a href="/topic/{{comment.id}}">  {{ comment.body }}</a></td>
+	{% endfor %}
+    </table>
+</div>
+
+{% include 'reply.html' %}
+
+{% endblock %}

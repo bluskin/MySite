@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}TheBait{% endblock %}</title>
+	{% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
+	
+    <script src="{% static 'js/jquery-2.0.0.min.js' %}"></script>
+    <script src="{% static 'js/ajax.js' %}"></script> 
+    
+</head>
+
+<body>
+	<div id="page">
+{% block sidebar %}
+<nav class="navbar">
+			<form action="/index/" method="Post" id="index">
+				    {% csrf_token %} 
+			</form>
+			<form action="/admin/" method="Post" id="index">
+				    {% csrf_token %} 
+			</form>
+			{% if user.is_authenticated %}
+			<form action="/accounts/logout/" method="Post" id="logout">
+				    {% csrf_token %} 
+			</form>
+			{% else %}
+			<form action="/accounts/login/" method="Post" id="login">
+				    {% csrf_token %} 
+
+			</form>
+			<form action="/accounts/register/" method="Post" id="Register">
+				    {% csrf_token %} 
+
+			</form>
+			{% endif %}
+			<div class="btn-group" role="group">
+			  <button type="submit" class="btn btn-default navbar-btn" form="admin" value="Submit">Admin</button>
+			  <button type="submit" class="btn btn-primary navbar-btn" form="index" value="Submit">Index</button>
+			{% if user.is_authenticated %}
+			  <button type="submit" class="btn btn-danger navbar-btn" form="logout" value="Submit">Logout</button>
+   			{% else %}
+			  <button type="submit" class="btn btn-success navbar-btn" form="Register" value="Submit">Register</button>
+			  <button type="submit" class="btn btn-success navbar-btn" form="login" value="Submit">Login</button>
+			</div>
+			{% endif %}
+        {% endblock %}
+    </div></nav>        
+
+
+    <div id="content">
+    
+	{% if messages %}
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+	{% endif %}
+        
+        {% block content %}This is the content area{% endblock %}
+	
+	</div>
+		
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content%}
+{% if user.is_authenticated %}
+<form action="{% url 'reply' topic.id %}" method="Post">
+    {% csrf_token %} 
+    {{ form }}
+    <input type="submit" value="Comment" />
+</form>
+{% endif %}
+{% endblock %}
